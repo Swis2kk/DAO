@@ -13,15 +13,17 @@ public class JdbcUserDao implements Dao<User, Integer> {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void insert(User u) {
-        String q = "INSERT INTO users (userID, lastName, firstName) VALUES (?, ?, ?);";
-        jdbcTemplate.update(q, u.getId(), u.getNameFirst(), u.getNameLast());
+    public void insert(User user) {
+        String queryString = "INSERT INTO users (userID, lastName, firstName) VALUES (?, ?, ?);";
+        //TODO jdbcTemplate.update(queryString, user, lambda gets preparedStatement consumer);
+        jdbcTemplate.update(queryString, user.getId(), user.getNameFirst(), user.getNameLast());
     }
 
+    //TODO querylist, add optional
     public User getById(Integer id) {
-        String q = "SELECT userId, lastName, firstName FROM users where userId = ?";
+        String queryString = "SELECT userId, lastName, firstName FROM users where userId = ?";
 
-        return jdbcTemplate.query(q, resultSet -> {
+        return jdbcTemplate.query(queryString, resultSet -> {
                     try {
                         resultSet.next();
                         return new User.Builder(resultSet.getInt(1),

@@ -15,17 +15,15 @@ public class JdbcTemplate {
         this.dataSource = ds;
     }
 
-    public <T> void update(String query, T... ts) {
+    public void update(String query, Object... args) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
-            int index = 1;
-            for (T e : ts) {
-                ps.setObject(index, e);
-                index++;
+            for (int i = 0; i < args.length; i++) {
+                ps.setObject(i + 1, args[i]);
             }
 
-            ps.execute();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("Unable to execute update operation", e);
         }
