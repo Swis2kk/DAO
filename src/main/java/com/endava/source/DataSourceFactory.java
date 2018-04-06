@@ -6,15 +6,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ConnectionMySql {
+public class DataSourceFactory {
 
-    private final MysqlDataSource mysqlDataSource;
+    private DataSourceFactory (){}
 
-    public ConnectionMySql() {
-        this.mysqlDataSource = new MysqlDataSource();
+    //TODO parameters with type of db
+    public static MysqlDataSource createMySqlDataSource() {
         Properties properties = new Properties();
         FileInputStream fis;
-
+        MysqlDataSource mysqlDataSource = new MysqlDataSource();
         try {
             fis = new FileInputStream("src/main/resources/db.properties");
             properties.load(fis);
@@ -24,9 +24,6 @@ public class ConnectionMySql {
         mysqlDataSource.setURL(properties.getProperty("MYSQL_DB_URL"));
         mysqlDataSource.setUser(properties.getProperty("MYSQL_DB_USERNAME"));
         mysqlDataSource.setPassword(properties.getProperty("MYSQL_DB_PASSWORD"));
-    }
-
-    public MysqlDataSource getDataSource() {
         return mysqlDataSource;
     }
 }
