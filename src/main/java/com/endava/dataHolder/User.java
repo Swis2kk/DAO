@@ -1,4 +1,4 @@
-package com.endava.model;
+package com.endava.dataHolder;
 
 //TODO Builder
 //TODO Done...
@@ -47,5 +47,25 @@ public class User {
         nameFirst = builder.nameFirst;
         email = builder.email;
         age = builder.age;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public String getNameLast() {
+        return nameLast;
+    }
+
+    public String getNameFirst() {
+        return nameFirst;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getAge() {
+        return age;
     }
 }

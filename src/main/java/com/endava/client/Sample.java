@@ -1,14 +1,23 @@
 package com.endava.client;
 
-import com.endava.model.User;
+import com.endava.dao.Dao;
+import com.endava.dao.JdbcDaoUser;
+import com.endava.dao.JdbcTemplate;
+import com.endava.dataHolder.User;
+import com.endava.source.ConnectionMySql;
 
 public class Sample {
 
     public static void main(String[] args){
 
-        User user = new User.Builder(1, "Poppins", "Marry").age(12).build();
+        Dao<User> userDao = new JdbcDaoUser(new JdbcTemplate(new ConnectionMySql().getDataSource()));
 
-        MySqlSou
+        User user = new User.Builder(12, "Dima", "Ned").build();
+
+        //userDao.insert(user);
+
+        userDao.delete(user);
+
 
     }
 }

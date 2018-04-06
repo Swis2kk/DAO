@@ -6,26 +6,27 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class MySqlSource {
+public class ConnectionMySql {
 
-    public static MysqlDataSource getDataSource() {
-        MysqlDataSource mysqlDataSource = null;
+    private final MysqlDataSource mysqlDataSource;
+
+    public ConnectionMySql() {
+        this.mysqlDataSource = new MysqlDataSource();
         Properties properties = new Properties();
-        FileInputStream file;
+        FileInputStream fis;
 
         try {
-            file = new FileInputStream("src/resources/db.properties");
-            properties.load(file);
+            fis = new FileInputStream("src/main/resources/db.properties");
+            properties.load(fis);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        mysqlDataSource = new MysqlDataSource();
         mysqlDataSource.setURL(properties.getProperty("MYSQL_DB_URL"));
         mysqlDataSource.setUser(properties.getProperty("MYSQL_DB_USERNAME"));
         mysqlDataSource.setPassword(properties.getProperty("MYSQL_DB_PASSWORD"));
-
-        return mysqlDataSource;
     }
 
+    public MysqlDataSource getDataSource() {
+        return mysqlDataSource;
+    }
 }
