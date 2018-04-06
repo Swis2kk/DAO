@@ -41,6 +41,7 @@ public class User {
         }
     }
 
+
     private User(Builder builder) {
         Id = builder.Id;
         nameLast = builder.nameLast;
@@ -67,5 +68,16 @@ public class User {
 
     public int getAge() {
         return age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "Id=" + Id +
+                ", nameLast='" + nameLast + '\'' +
+                ", nameFirst='" + nameFirst + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
